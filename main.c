@@ -47,13 +47,24 @@ int main() {
         char commandCopy[MAX_LENGTH];
         strcpy(commandCopy, command);
 
-
-        token = strtok(command, " ");
-        // split command and append tokens to array arguments
-        while (token) {
-            arguments[spaces] = token;
-            token = strtok(NULL, " ");
-            spaces++;
+        // if the path contains "
+        if (strchr(command, '\"') != NULL) {
+            token = strtok(command, "\"");
+            // split command and append tokens to array arguments
+            while (token) {
+                arguments[spaces] = token;
+                token = strtok(NULL, "\"");
+                spaces++;
+            }
+            arguments[0] = "cd";
+        } else {
+            token = strtok(command, " ");
+            // split command and append tokens to array arguments
+            while (token) {
+                arguments[spaces] = token;
+                token = strtok(NULL, " ");
+                spaces++;
+            }
         }
 
         // add NULL to the arguments
