@@ -57,6 +57,15 @@ int main() {
                 spaces++;
             }
             arguments[0] = "cd";
+        } else if (strchr(command, '\'') != NULL) {
+            token = strtok(command, "\'");
+            // split command and append tokens to array arguments
+            while (token) {
+                arguments[spaces] = token;
+                token = strtok(NULL, "\'");
+                spaces++;
+            }
+            arguments[0] = "cd";
         } else {
             token = strtok(command, " ");
             // split command and append tokens to array arguments
